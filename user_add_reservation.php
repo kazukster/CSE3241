@@ -82,27 +82,5 @@
         <button type="submit">Submit</button>
     </form>
 
-    <?php
-// Validate if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    // Get the input date from the form
-    $inputDate = $_POST["inputDate"];
-
-    // Validate if the date is at least 1 day in advance
-    $currentDate = date("Y-m-d");
-    $nextDay = date('Y-m-d', strtotime($currentDate . ' +1 day'));
-
-    if ($inputDate < $nextDay) {
-        // Redirect back to the form with an error message
-        header("Location: index.php?error=1");
-        exit();
-    }
-
-    // If the date is valid, redirect to the new page
-    header("Location: new_page_given_date.php?date=" . urlencode($inputDate));
-    exit();
-}
-?>
 </body>
 </html>
