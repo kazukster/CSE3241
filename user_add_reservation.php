@@ -45,9 +45,10 @@
         </div>
         <div class="content">
             <h2>Welcome, <?php session_start(); echo $_SESSION['Username_ID']; ?>!</h2>
-            <p>This is where you may add a reservation, you will see the displayed zones (along with their available spots and relative fees) <br>and 
-              each zone's distance to each venue. To reserve a spot, decide which zone you would like to park in, then enter in the relevant information and click submit!
-            We operate on a cash based system, you will pay in person.</p>
+            <p>This is where you will decide which method you will use to create your reservation, there are 2 options: 
+            1. We will display all zones that still have available spots, their number of available spots, and the rates for the date you enter.
+            2. We will display the distance between each available zone and the venue you select, alongside the other information listed above.
+            Please decide which method you would like to pursue and use it's respective entry fields and click submit!</p>
         </div>
     </div>
 </body>
