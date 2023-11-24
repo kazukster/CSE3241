@@ -53,7 +53,30 @@
     </div>
     
     <h2>Enter a Date (at least 1 day in advance of the current date)</h2>
-    <form action="process_date.php" method="post">
+    <?php
+    // Validate if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        // Get the input date from the form
+        $inputDate = $_POST["inputDate"];
+
+        // Validate if the date is at least 1 day in advance
+        $currentDate = date("Y-m-d");
+        $nextDay = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+
+        if ($inputDate < $nextDay) {
+            // Display error message
+            echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
+        } else {
+            // If the date is valid, redirect to the new page
+            session_start();
+            $_SESSION['enteredDate'] = $inputDate;
+            header("Location: user_add_reservation_by_date.php");
+            exit();
+        }
+    }
+    ?>
+    <form action="" method="post">
         <label for="inputDate">Date:</label>
         <input type="date" id="inputDate" name="inputDate" required>
         <button type="submit">Submit</button>
