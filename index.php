@@ -17,7 +17,7 @@
         $servername = "localhost";
         $dbusername = "phpuser"; // Replace with your DB username
         $dbpassword = "phpwd"; // Replace with your DB password
-        $dbname = "final"; // Replace with your DB name
+        $dbname = "PARKING_SYSTEM"; // Replace with your DB name
 
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
         if ($conn->connect_error) {
