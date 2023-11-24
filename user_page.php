@@ -38,13 +38,13 @@
             <h1>User Dashboard</h1>
         </div>
         <div class="nav">
-            <a href="#">Add a Reservation</a>
-            <a href="#">Cancel a Reservation</a>
-            <a href="#">View Reservation History</a>
-            <a href="logout.php">Logout</a> <!-- Placeholder for logout functionality -->
+            <a href="user_add_reservation.php">Add a Reservation</a>
+            <a href="user_cancel_reservation.php">Cancel a Reservation</a>
+            <a href="user_reservation_history.php">View Reservation History</a>
+            <a href="user_logout.php">Logout</a> <!-- Placeholder for logout functionality -->
         </div>
         <div class="content">
-            <h2>Welcome, ENTER USER NAME HERE!</h2>
+            <h2>Welcome, <?php echo isset($_SESSION['Username_ID']) ? $_SESSION['Username_ID'] : 'Guest'; ?>!</h2>
             <p>This is the user dashboard. From here you can: add a reservation, cancel a reservation, and view reservation history.</p>
         </div>
     </div>
