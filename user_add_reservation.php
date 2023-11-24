@@ -69,7 +69,7 @@
             echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
         } else {
             // If the date is valid, redirect to the new page
-            session_start();
+            
             $_SESSION['enteredDate'] = $inputDate;
             header("Location: user_add_reservation_by_date.php");
             exit();
@@ -86,8 +86,6 @@
 
     
     <?php
-session_start();
-
 // Validate if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the event selection is submitted
@@ -102,10 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Database connection (replace with your database credentials)
-$servername = "your_servername";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_dbname";
+$servername = "localhost";
+$username = "phpuser";
+$password = "phpwd";
+$dbname = "PARKING_SYSTEM";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
