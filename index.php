@@ -56,6 +56,11 @@
                 $result = $conn->query($sql);
         
                 if ($result->num_rows > 0) {
+
+                    // Set session variable
+                    session_start();
+                    $_SESSION['Username_ID'] = $username_id;
+                    
                     // Redirect to a user-specific page
                     header("Location: user_page.php");
                     exit;
