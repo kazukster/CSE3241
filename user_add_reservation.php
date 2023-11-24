@@ -82,5 +82,60 @@
         <button type="submit">Submit</button>
     </form>
 
+
+
+    
+    <?php
+session_start();
+
+// Validate if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the event selection is submitted
+    if (isset($_POST['selectedEvent'])) {
+        // Store the selected event in a session variable
+        $_SESSION['selectedEvent'] = $_POST['selectedEvent'];
+
+        // Redirect to the new page
+        header("Location: user_add_reservation_by_venue.php");
+        exit();
+    }
+}
+
+// Database connection (replace with your database credentials)
+$servername = "your_servername";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_dbname";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch all event names from the Events table
+$sql = "SELECT event_name FROM Events";
+$result = $conn->query($sql);
+
+// Close the database connection
+$conn->close();
+?>
+
+<h2>Select a venue</h2>
+
+    <form action="" method="post">
+        <label for="eventSelect">Select a venue:</label>
+        <select id="eventSelect" name="selectedEvent" required>
+            <?php
+            // Display event names in the dropdown menu
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row['event_name'] . "'>" . $row['event_name'] . "</option>";
+            }
+            ?>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
