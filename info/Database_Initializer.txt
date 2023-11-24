@@ -11,6 +11,7 @@ CREATE TABLE Zones (
     zone_ID INT PRIMARY KEY,
     zone_name VARCHAR(255),
     total_spots INT,
+    current_spots INT,
     rate DECIMAL(10, 2),
     zone_fee DECIMAL(10, 2)
 );
