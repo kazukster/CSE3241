@@ -38,7 +38,6 @@
             <h1>Admin Dashboard</h1>
         </div>
         <div class="nav">
-            <a href="manage_users.php">Manage Users</a>
             <a href="generate_report.php">View Reports</a>
             <a href="manage_zones.php">Manage Zones</a>
             <a href="view_zones.php">View Zones</a>
