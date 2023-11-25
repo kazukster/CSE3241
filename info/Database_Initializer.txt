@@ -52,7 +52,7 @@ VALUES
     ('admin', '6148675309', '1', 'admin123'),
     ('Syan_Raval', '1231234444', '0', 'SyanLovesPrimaryKeys'),
     ('Kazuki_Hayashi', '1234567890', '1', 'ZukiLovesPHP'),
-    ('Chirstian_Barttolini', '0987654321', '1', 'ChristianLovesMySQL'),
+    ('Christian_Bartolini', '0987654321', '1', 'ChristianLovesMySQL'),
     ('Matthew_Dippolito', '1231234567', '0', 'MattLovesRelationalSchema');
 
 INSERT INTO Zones (zone_ID, zone_name, total_spots, rate, zone_fee) 
