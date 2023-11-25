@@ -33,19 +33,20 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="header">
             <h1>Admin Dashboard</h1>
         </div>
         <div class="nav">
-            <a href="#">Manage Users</a>
-            <a href="#">View Reports</a>
-            <a href="#">Settings</a>
-            <a href="logout.php">Logout</a> <!-- Placeholder for logout functionality -->
+            <a href="manage_users.php">Manage Users</a>
+            <a href="generate_report.php">View Reports</a>
+            <a href="manage_zones.php">Manage Zones</a>
+            <a href="view_zones.php">View Zones</a>
+            <a href="user_logout.php">Logout</a> <!-- Logout functionality -->
         </div>
         <div class="content">
             <h2>Welcome, Admin!</h2>
-            <p>This is the admin dashboard. From here, you can manage users, view reports, adjust settings, and more.</p>
+            <p>This is the admin dashboard. From here, you can manage users, view reports, adjust zones, and more.</p>
         </div>
     </div>
 </body>
