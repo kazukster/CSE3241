@@ -56,7 +56,7 @@
     <?php
     // Validate if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+    if (!isset($_POST['selectedEvent'])) {
         // Get the input date from the form
         $inputDate = $_POST["inputDate"];
 
@@ -75,6 +75,7 @@
             exit();
         }
     }
+}
     ?>
     <form action="" method="post">
         <label for="inputDate">Date:</label>
@@ -124,6 +125,8 @@ $conn->close();
 <h2>Select a venue</h2>
 
     <form action="" method="post">
+	<label for="inputDate">Date:</label>
+        <input type="date" id="inputDate" name="inputDate" required>
         <label for="eventSelect">Select a venue:</label>
         <select id="eventSelect" name="selectedEvent" required>
             <?php
@@ -135,5 +138,30 @@ $conn->close();
         </select>
         <button type="submit">Submit</button>
     </form>
+<?php
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+	$inputDate = $_POST["inputDate"];
+        // Validate if the date is at least 1 day in advance
+        $currentDate = date("Y-m-d");
+        $nextDay = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+
+        if ($inputDate < $nextDay) {
+            // Display error message
+            echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
+        } else {
+            // If the date is valid, redirect to the new page
+            
+            $_SESSION['enteredDate'] = $inputDate;
+            
+    // Check if the selectedEvent is set in the POST data
+    if (isset($_POST["selectedEvent"])) {
+        // Save the selected venue in the session variable
+        $_SESSION["selectedVenue"] = $_POST["selectedEvent"];
+    }
+}
+}
+?>
 </body>
 </html>
