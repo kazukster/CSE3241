@@ -1,4 +1,3 @@
-<!-- add later--> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,14 +45,13 @@
         </div>
         <div class="content">
             <h2>Welcome, <?php session_start(); echo $_SESSION['Username_ID']; ?>!</h2>
-            <p>This is where you will decide which method you will use to create your reservation, there are 2 options: <br>
+            <p>You have opted for option 1: <br> <br>
             1. We will display all zones that still have available spots, their number of available spots, and the rates for the date you enter. <br>
-            2. We will display the distance between each available zone and the venue you select, alongside the other information listed above. <br>
-            Please decide which method you would like to pursue and use it's respective entry fields and click submit! <br> </p>
+            </p>
         </div>
     </div>
     
-    <h2>Enter a Date (at least 1 day in advance of the current date)</h2>
+    <h2>Please view your choices and select the zone you would like to use by entering the zone ID (finalizing your reservation)!</h2>
 
 
 <?php 
@@ -62,82 +60,44 @@ $username = "phpuser";
 $password = "phpwd";
 $dbname = "PARKING_SYSTEM";
 $conn = new mysqli($servername, $username, $password, $dbname);
+$selectedDate = $_SESSION['enteredDate'];
+// Query to get available zones for the entered date
+        $sql = "SELECT z.zone_ID, z.zone_name, (z.total_spots - COUNT(r.Confirmation_number)) AS available_spots, z.rate
+                FROM Zones z
+                LEFT JOIN Reservations r ON z.zone_ID = r.zone_id AND r.event_date = '$selectedDate'
+                GROUP BY z.zone_ID
+                HAVING available_spots > 0";
 
-// Retrieve available zones for the selected date
-$enteredDate = $_SESSION['enteredDate'];
-$sql = "SELECT z.zone_id, z.zone_name, a.available_spots, a.rate 
-        FROM Zones z
-        JOIN Availability a ON z.zone_id = a.zone_id
-        WHERE a.date = '$enteredDate' AND a.available_spots > 0";
-$result = $conn->query($sql);
+        $result = $conn->query($sql);
 
-// Retrieve available spots for the selected date and zone
-$enteredDate = $_SESSION['enteredDate'];
-$sql = "SELECT z.zone_id, z.zone_name, z.total_spots, a.available_spots, a.rate 
-        FROM Zones z
-        LEFT JOIN (
-            SELECT zone_id, SUM(num_spots) as reserved_spots
-            FROM Reservations
-            WHERE event_date = '$enteredDate'
-            GROUP BY zone_id
-        ) r ON z.zone_id = r.zone_id
-        JOIN Availability a ON z.zone_id = a.zone_id
-        WHERE a.date = '$enteredDate'";
+        if ($result->num_rows > 0) {
+            // Display available zones
+            echo "<h2>Available Zones for $selectedDate:</h2>";
+            echo "<table border='1'>
+                    <tr>
+                        <th>Zone ID</th>
+                        <th>Zone Name</th>
+                        <th>Available Spots</th>
+                        <th>Rate</th>
+                    </tr>";
 
-$result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>
+                        <td>{$row['zone_ID']}</td>
+                        <td>{$row['zone_name']}</td>
+                        <td>{$row['available_spots']}</td>
+                        <td>{$row['rate']}</td>
+                      </tr>";
+            }
 
-// Display available spots and their details
-if ($result->num_rows > 0) {
-    echo "<h2>Available Spots for $enteredDate</h2>";
-    echo "<table border='1'>";
-    echo "<tr><th>Zone ID</th><th>Zone Name</th><th>Total Spots</th><th>Reserved Spots</th><th>Available Spots</th><th>Rate</th></tr>";
-    while ($row = $result->fetch_assoc()) {
-        $totalSpots = $row['total_spots'];
-        $reservedSpots = $row['reserved_spots'] ?? 0;
-        $availableSpots = $totalSpots - $reservedSpots;
-
-        echo "<tr>";
-        echo "<td>" . $row['zone_id'] . "</td>";
-        echo "<td>" . $row['zone_name'] . "</td>";
-        echo "<td>" . $totalSpots . "</td>";
-        echo "<td>" . $reservedSpots . "</td>";
-        echo "<td>" . $availableSpots . "</td>";
-        echo "<td>" . $row['rate'] . "</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-} else {
-    echo "<p>No available spots for $enteredDate</p>";
-}
-
-// Close the database connection
-$conn->close();
-?>
-
-<!-- Add reservation form -->
-<h2>Add Reservation</h2>
-<form action="process_reservation.php" method="post">
-    <input type="hidden" name="enteredDate" value="<?php echo $enteredDate; ?>">
-    <label for="zoneId">Select Zone:</label>
-    <select id="zoneId" name="zoneId" required>
-        <?php
-        // Display available spots in the dropdown menu
-        $result = $conn->query($sql); // Re-run the query to fetch available spots
-        while ($row = $result->fetch_assoc()) {
-            echo "<option value='" . $row['zone_id'] . "'>" . $row['zone_name'] . "</option>";
+            echo "</table>";
+        } else {
+            echo "<p>No available zones for $selectedDate.</p>";
         }
-        ?>
-    </select>
-    <label for="numSpots">Number of Spots:</label>
-    <input type="number" id="numSpots" name="numSpots" required>
-    <!-- Add more reservation details as needed -->
-    <button type="submit">Submit Reservation</button>
-</form>
+
+        $conn->close();
+    
+    ?>
+
 </body>
 </html>
-
-
-
-
-
-
