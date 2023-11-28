@@ -51,9 +51,9 @@ VALUES
     ('Syan_Raval', '1231234444', '0', 'SyanLovesPrimaryKeys');
 
 INSERT INTO Zones (zone_ID, zone_name, total_spots, current_spots, rate, zone_fee) VALUES 
-(1, 'StateHouse', 200, DEFAULT, DEFAULT, DEFAULT),
-(2, 'ShortNorth', 100, DEFAULT, DEFAULT, DEFAULT),
-(3, 'NorthMarket', 50, DEFAULT, DEFAULT, DEFAULT);
+(1, 'StateHouse', 200, DEFAULT, 3.00, 3.00),
+(2, 'ShortNorth', 100, DEFAULT, 4.50, 4.50),
+(3, 'NorthMarket', 50, DEFAULT, 7.00, 7.00);
 
 
 INSERT INTO Events (event_ID, event_name, event_date, event_fee) VALUES 
