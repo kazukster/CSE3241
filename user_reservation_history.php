@@ -1,31 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Reservations</title>
+    <title>Viewing Reservation History</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
         }
-        table, th, td {
-            border: 1px solid black;
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav {
+            padding: 15px;
+            background: #e3e3e3;
+            margin-top: 10px;
+        }
+        .nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
         th, td {
+            border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
         th {
             background-color: #f2f2f2;
         }
-        .cancelled {
-            color: red;
-        }
         .active {
             color: green;
+        }
+        .cancelled {
+            color: red;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>Adding a reservation</h1>
+        </div>
+        <div class="nav">
+            <a href="user_add_reservation.php">Add a Reservation</a>
+            <a href="user_cancel_reservation.php">Cancel a Reservation</a>
+            <a href="user_reservation_history.php">View Reservation History</a>
+            <a href="user_logout.php">Logout</a> 
+        </div>
+        <div class="content">
+            <h2>Welcome, <?php session_start(); echo $_SESSION['Username_ID']; ?>!</h2>
+            <p>This is where you can view your reservartion history, enter in either the phone number or a confirmation number from the user <br>
+		you wish to view history for and it will be printed below! </p>
+        </div>
+    </div>
     <h2>User Reservations</h2>
     <form method="post">
         <label for="search">Enter Confirmation Number or Cellphone:</label>
