@@ -16,6 +16,7 @@
         <div><label>Zone Name: <input type="text" name="zone_name" required></label></div>
         <div><label>Max Spots: <input type="number" name="total_spots" required></label></div>
         <div><label>Rate: <input type="text" name="rate" required></label></div>
+        <div><label>Zone Fee: <input type="text" name="zone_fee" required pattern="\d+(\.\d{2})?" title="Decimal format (e.g., 10.00)"></label></div>
         <div><button type="submit">Add Zone</button></div>
     </form>
     
@@ -25,6 +26,8 @@
         <div><label>Zone ID: <input type="number" name="zone_id" required></label></div>
         <div><button type="submit">Remove Zone</button></div>
     </form>
+
+    
 
     <?php
     // Database configuration
@@ -50,18 +53,19 @@
             $zoneName = $_POST["zone_name"];
             $maxSpots = $_POST["total_spots"];
             $rate = $_POST["rate"];
-
+            $zoneFee = $_POST["zone_fee"];
+        
             // Prepare SQL and bind parameters
-            $stmt = $conn->prepare("INSERT INTO Zones (zone_ID, zone_name, total_spots, rate) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("isid", $zoneID, $zoneName, $maxSpots, $rate);
-
+            $stmt = $conn->prepare("INSERT INTO Zones (zone_ID, zone_name, total_spots, rate, zone_fee) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isidd", $zoneID, $zoneName, $maxSpots, $rate, $zoneFee);
+        
             // Execute statement and check for errors
             if($stmt->execute()) {
                 echo "<p>Zone added successfully.</p>";
             } else {
                 echo "<p>Error adding zone: " . $stmt->error . "</p>";
             }
-
+        
             // Close statement
             $stmt->close();
         } elseif ($action == 'remove') {
