@@ -54,11 +54,11 @@ VALUES
     ('Christian_Bartolini', '0987654321', '1', 'ChristianLovesMySQL'),
     ('Matthew_Dippolito', '1231234567', '0', 'MattLovesRelationalSchema');
 
-INSERT INTO Zones (zone_ID, zone_name, total_spots, rate, zone_fee) 
-VALUES 
-(12345, 'Green Park', 120, 4.00, 4.00),
-(12354, 'Red Park', 50, 3.50, 3.50),
-(12435, 'Blue Park', 220, 7.00, 7.00);
+INSERT INTO Zones (zone_ID, zone_name, total_spots, current_spots, rate, zone_fee) VALUES 
+(1, 'StateHouse', 200, DEFAULT, DEFAULT, DEFAULT),
+(2, 'ShortNorth', 100, DEFAULT, DEFAULT, DEFAULT),
+(3, 'NorthMarket', 50, DEFAULT, DEFAULT, DEFAULT);
+
 
 INSERT INTO Events (event_ID, event_name, event_date, event_fee)
 VALUES
