@@ -12,6 +12,7 @@
     <!-- Add Zone Form -->
     <form method="post" action="manage_zones.php">
         <input type="hidden" name="action" value="add">
+        <div><label>Zone ID: <input type="number" name="zone_id" required></label></div>
         <div><label>Zone Name: <input type="text" name="zone_name" required></label></div>
         <div><label>Max Spots: <input type="number" name="total_spots" required></label></div>
         <div><label>Rate: <input type="text" name="rate" required></label></div>
@@ -24,13 +25,13 @@
         <div><label>Zone ID: <input type="number" name="zone_id" required></label></div>
         <div><button type="submit">Remove Zone</button></div>
     </form>
-    
+
     <?php
     // Database configuration
     $servername = "localhost";
     $username = "phpuser"; // your database username
     $password = "phpwd"; // your database password
-    $dbname = "PARKING_SYSTEM"; // your database name
+    $dbname = "parking_system"; // your database name
 
     // Create database connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,13 +46,14 @@
         $action = $_POST['action'];
 
         if ($action == 'add') {
+            $zoneID = $_POST["zone_id"];
             $zoneName = $_POST["zone_name"];
             $maxSpots = $_POST["total_spots"];
             $rate = $_POST["rate"];
 
             // Prepare SQL and bind parameters
-            $stmt = $conn->prepare("INSERT INTO Zones (zone_name, total_spots, rate) VALUES (?, ?, ?)");
-            $stmt->bind_param("sid", $zoneName, $maxSpots, $rate);
+            $stmt = $conn->prepare("INSERT INTO Zones (zone_ID, zone_name, total_spots, rate) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("isid", $zoneID, $zoneName, $maxSpots, $rate);
 
             // Execute statement and check for errors
             if($stmt->execute()) {
