@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Cancel a Reservation</title>
-     body {
+      <style>
+    body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
@@ -29,6 +30,7 @@
             text-decoration: none;
             color: #333;
         }
+           </style>
 </head>
 <body>
 <div class="container">
