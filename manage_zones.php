@@ -3,7 +3,7 @@
 <head>
     <title>Manage Zones</title>
     <style>
-        /* Add your CSS styling here */
+        /* styling */
     </style>
 </head>
 <body>
