@@ -47,12 +47,8 @@ CREATE TABLE ZoneEventsDistances (
 
 INSERT INTO Users (Username_ID, Cellphone, Admin, Password)
 VALUES
-    ('Tommy_Tutone', '6148675309', '0', 'Tutone1981'),
     ('admin', '6148675309', '1', 'admin123'),
-    ('Syan_Raval', '1231234444', '0', 'SyanLovesPrimaryKeys'),
-    ('Kazuki_Hayashi', '1234567890', '1', 'ZukiLovesPHP'),
-    ('Christian_Bartolini', '0987654321', '1', 'ChristianLovesMySQL'),
-    ('Matthew_Dippolito', '1231234567', '0', 'MattLovesRelationalSchema');
+    ('Syan_Raval', '1231234444', '0', 'SyanLovesPrimaryKeys');
 
 INSERT INTO Zones (zone_ID, zone_name, total_spots, current_spots, rate, zone_fee) VALUES 
 (1, 'StateHouse', 200, DEFAULT, DEFAULT, DEFAULT),
