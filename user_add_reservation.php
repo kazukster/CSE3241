@@ -87,18 +87,6 @@
 
     
     <?php
-// Validate if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the event selection is submitted
-    if (isset($_POST['selectedEvent'])) {
-        // Store the selected event in a session variable
-        $_SESSION['selectedEvent'] = $_POST['selectedEvent'];
-
-        // Redirect to the new page
-        header("Location: user_add_reservation_by_venue.php");
-        exit();
-    }
-}
 
 // Database connection (replace with your database credentials)
 $servername = "localhost";
@@ -154,11 +142,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the date is valid, redirect to the new page
             
             $_SESSION['enteredDate'] = $inputDate;
-            
-    // Check if the selectedEvent is set in the POST data
-    if (isset($_POST["selectedEvent"])) {
-        // Save the selected venue in the session variable
-        $_SESSION["selectedVenue"] = $_POST["selectedEvent"];
+                // Check if the selectedEvent is set in the POST data
+   if (isset($_POST["selectedEvent"])) {
+        		// Store the selected event in a session variable
+        		$_SESSION['selectedEvent'] = $_POST['selectedEvent'];
+	           	 // Redirect to the new page
+        		header("Location: user_add_reservation_by_venue.php");
+        		exit();
     }
 }
 }
