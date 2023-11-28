@@ -18,4 +18,9 @@ This should be it, access the page by visiting http://localhost:8080/ on your we
 
 The database begins with 2 users pre loaded in: Username: Admin Password: Admin123 Which is a user with admin privledges. Username: Syan_Raval Password: SyanLovesPrimaryKeys This is a standard user.
 
-Things of note: This application assumes the following: your server name = "localhost" your database username = "phpuser" your database password = "phpwd" your database name = "parking_system" If this is not the case, unforseen errors may occur. Please, when navigating the html site, do not use your forward/backward arrows, but rather use the built in navigation tools (ex: do not use the back arrow to access the log in page again, but rather use the log out button). Otherwise, unforseen errors may occur.
+Things of note: 
+This application assumes the following: your server name = "localhost" your database username = "phpuser" your database password = "phpwd"
+your database name = "parking_system". If this is not the case, unforseen errors may occur. 
+Please, when navigating the html site as a user, do not use your forward/backward arrows, 
+but rather use the built in navigation tools (ex: do not use the back arrow to access the log in page again, but rather use the log out button). 
+Otherwise, unforseen errors may occur.
