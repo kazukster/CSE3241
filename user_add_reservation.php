@@ -98,6 +98,7 @@
             echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
         } else {
        		 // Redirect to the new page
+		$_SESSION['enteredDate'] = $inputDate;
         	header("Location: user_add_reservation_by_venue.php");
         	exit();
 	}
