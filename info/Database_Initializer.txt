@@ -60,11 +60,11 @@ INSERT INTO Zones (zone_ID, zone_name, total_spots, current_spots, rate, zone_fe
 (3, 'NorthMarket', 50, DEFAULT, DEFAULT, DEFAULT);
 
 
-INSERT INTO Events (event_ID, event_name, event_date, event_fee)
-VALUES
-(1, 'Movie', '2024-12-03', 15.00),
-(2, 'Baseball', '2024-12-15', 20.00),
-(3, 'Museum', '2024-12-05', 12.50);
+INSERT INTO Events (event_ID, event_name, event_date, event_fee) VALUES 
+(1, 'Nationwide Arena', DEFAULT, DEFAULT),
+(2, 'COSI', DEFAULT, DEFAULT),
+(3, 'Huntington Park', DEFAULT, DEFAULT);
+
 
 INSERT INTO Reservations (Confirmation_number, user_name, Cellphone, zone_id, event_date, status, event_ID, total_fee)
 VALUES
