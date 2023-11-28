@@ -40,7 +40,7 @@
     <div class="container">
         <h1>Generate Reports</h1>
         
-        //Form to select the date
+        <!-- Form to select the date -->
         <form method="post" action="generate_report.php">
             <label for="report_date">Select Date for Report:</label>
             <input type="date" id="report_date" name="report_date" required>
