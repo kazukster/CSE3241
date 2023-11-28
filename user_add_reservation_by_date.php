@@ -55,22 +55,26 @@
 
 
 <?php 
+//Connecting to the database
 $servername = "localhost";
 $username = "phpuser";
 $password = "phpwd";
 $dbname = "PARKING_SYSTEM";
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+//Getting the entered date from the previous file
 $selectedDate = $_SESSION['enteredDate'];
+
 // Query to get available zones for the entered date
-        $sql = "SELECT z.zone_ID, z.zone_name, (z.total_spots - COUNT(r.Confirmation_number)) AS available_spots, z.rate
+$sql = "SELECT z.zone_ID, z.zone_name, (z.total_spots - COUNT(r.Confirmation_number)) AS available_spots, z.rate
                 FROM Zones z
                 LEFT JOIN Reservations r ON z.zone_ID = r.zone_id AND r.event_date = '$selectedDate'
                 GROUP BY z.zone_ID
                 HAVING available_spots > 0";
 
-        $result = $conn->query($sql);
+$result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+if ($result->num_rows > 0) {
             // Display available zones
             echo "<h2>Available Zones for $selectedDate:</h2>";
             echo "<table border='1'>
@@ -82,12 +86,12 @@ $selectedDate = $_SESSION['enteredDate'];
                     </tr>";
 
             while ($row = $result->fetch_assoc()) {
-                echo "<tr>
+                	echo "<tr>
                         <td>{$row['zone_ID']}</td>
                         <td>{$row['zone_name']}</td>
                         <td>{$row['available_spots']}</td>
                         <td>{$row['rate']}</td>
-                      </tr>";
+			</tr>";
             }
 
             echo "</table>";
@@ -101,6 +105,7 @@ $selectedDate = $_SESSION['enteredDate'];
                     <button type='submit'>Make Reservation</button>
                   </form>";
 
+		//Username can be taken without prompting them (they already logged in), same with phone number
 		$username = $_SESSION['Username_ID'];
 
 		$userPhoneQuery = "SELECT Cellphone FROM users WHERE Username_ID = '$username'";
@@ -123,22 +128,22 @@ $selectedDate = $_SESSION['enteredDate'];
                 $zoneResult = $conn->query($zoneQuery);
 
 		if ($zoneResult->num_rows > 0) {
-                    $zoneRow = $zoneResult->fetch_assoc();
-                    $zoneRate = $zoneRow['rate'];
+                    	$zoneRow = $zoneResult->fetch_assoc();
+                    	$zoneRate = $zoneRow['rate'];
 
-                    // Calculate total fee
-                    $totalFee = $zoneRate;
-                // Insert reservation into the database
-                $insertSql = "INSERT INTO Reservations (user_name, Cellphone, zone_id, event_date, status, total_fee)
+                    	// Calculate total fee (not really a calculation after schema change) 
+                    	$totalFee = $zoneRate;
+	                // Insert reservation into the database
+                	$insertSql = "INSERT INTO Reservations (user_name, Cellphone, zone_id, event_date, status, total_fee)
                               VALUES ('$username', '$userPhone', '$selectedZone', '$selectedDate', 1, $totalFee)";
 
-                if ($conn->query($insertSql) === TRUE) {
-                    // Display confirmation number
-                    $confirmationNumber = $conn->insert_id;
-                    echo "<p>Reservation successful! Your confirmation number is: $confirmationNumber, please leave this page!</p>";
-		    } else {
-                    echo "Error: " . $insertSql . "<br>" . $conn->error;
-		}
+                	if ($conn->query($insertSql) === TRUE) {
+                   	 	// Display confirmation number if the reservation was successful
+                    		$confirmationNumber = $conn->insert_id;
+                    		echo "<p>Reservation successful! Your confirmation number is: $confirmationNumber, please leave this page!</p>";
+		    	} else {
+                    		echo "Error: " . $insertSql . "<br>" . $conn->error;
+			}
                 }
             }
         } else {
