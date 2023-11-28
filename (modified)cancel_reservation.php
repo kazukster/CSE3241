@@ -44,7 +44,7 @@
             <a href="user_logout.php">Logout</a>
     </div>
     <div class="content">
-        <h2>Enter the Confirmation Number to Cancel Your Reservation</h2>
+    <h2>Enter the Confirmation Number to Cancel Your Reservation</h2>
         <form method="post" action="user_cancel_reservation.php">
             <label for="confirmation_number">Confirmation Number:</label>
             <input type="text" id="confirmation_number" name="confirmation_number" required>
@@ -53,7 +53,7 @@
 
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $servername = "localhost"; // Replace with your server details
+            $servername = "localhost"; // Your server details
             $username = "phpuser"; // Your DB username
             $password = "phpwd"; // Your DB password
             $dbname = "PARKING_SYSTEM"; // Your DB name
@@ -66,41 +66,37 @@
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // Sanitize input
+            // Clean input
             $confirmation_number = $conn->real_escape_string($_POST['confirmation_number']);
 
-            // Fetch the reservation date for the given confirmation number
-            $sqlDateCheck = "SELECT event_date FROM Reservations WHERE Confirmation_number = ?";
-            $stmtDateCheck = $conn->prepare($sqlDateCheck);
-            $stmtDateCheck->bind_param("i", $confirmation_number);
-            $stmtDateCheck->execute();
-            $resultDateCheck = $stmtDateCheck->get_result();
+            // Fetch the reservation date
+            $sqlFetchDate = "SELECT event_date FROM Reservations WHERE Confirmation_number = ?";
+            $stmtFetchDate = $conn->prepare($sqlFetchDate);
+            $stmtFetchDate->bind_param("i", $confirmation_number);
+            $stmtFetchDate->execute();
+            $resultFetchDate = $stmtFetchDate->get_result();
 
-            if ($resultDateCheck->num_rows > 0) {
-                $row = $resultDateCheck->fetch_assoc();
+            if ($resultFetchDate->num_rows > 0) {
+                $row = $resultFetchDate->fetch_assoc();
                 $reservationDate = new DateTime($row['event_date']);
                 $currentDate = new DateTime();
                 $currentDate->modify('+3 day');
 
                 if ($currentDate > $reservationDate) {
-                    // Cancellation not allowed as it's less than 3 days in advance
-                    echo "<p style='color: red;'>Cancellation not allowed. Reservations must be canceled at least 3 days in advance.</p>";
+                    echo "<p style='color: red;'>Cannot cancel reservation. Cancellations must be made at least 3 days in advance.</p>";
                 } else {
-                    // Proceed with cancellation
+                    // SQL to cancel a reservation
                     $sqlCancel = "UPDATE Reservations SET status = FALSE WHERE Confirmation_number = ?";
                     $stmtCancel = $conn->prepare($sqlCancel);
                     $stmtCancel->bind_param("i", $confirmation_number);
-
                     if ($stmtCancel->execute()) {
                         echo "<p>Reservation cancelled successfully.</p>";
                     } else {
                         echo "<p>Error canceling reservation: " . $stmtCancel->error . "</p>";
                     }
-
                     $stmtCancel->close();
                 }
-
-                $stmtDateCheck->close();
+                $stmtFetchDate->close();
             } else {
                 echo "<p>Invalid confirmation number.</p>";
             }
