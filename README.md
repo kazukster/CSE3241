@@ -1,3 +1,4 @@
+Many of the files discussed in this page can be found under the folder 'info'
 
 Make sure MySQL is running on your laptop.
 
@@ -17,6 +18,11 @@ Next, Copy-Paste each of the blocks of text within Database_Initializer.txt that
 Run this command next:
 grant all on PARKING_SYSTEM.* to phpuser@'%';
 
+This should be it, access the page by visiting http://localhost:8080/ on your web browser.
+
+The database begins with 2 users pre loaded in: 
+Username: Admin  Password: Admin123  Which is a user with admin privledges.
+Username: Syan_Raval  Password: SyanLovesPrimaryKeys   This is a standard user.
 
 Things of note: 
 This application assumes the following:
