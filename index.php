@@ -27,13 +27,14 @@
     </form>
 
     <?php
+//Creating a database connection
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $servername = "localhost";
-        $dbusername = "phpuser"; //Database username
-        $dbpassword = "phpwd"; //Database password
-        $dbname = "PARKING_SYSTEM"; //Database name
+        $dbusername = "phpuser"; 
+        $dbpassword = "phpwd"; 
+        $dbname = "PARKING_SYSTEM"; 
 
-        //Creating a database connection
+        
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
         //Checking the connection
@@ -41,6 +42,7 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
+        //Submission of the login form
         if (isset($_POST['login'])) {
             $username_id = $conn->real_escape_string($_POST['username_id']);
             $password = $_POST['password'];
