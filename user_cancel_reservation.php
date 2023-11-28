@@ -39,7 +39,10 @@
             <h1>Cancel a Reservation</h1>
         </div>
         <div class="nav">
-            
+            <a href="user_add_reservation.php">Add a Reservation</a>
+            <a href="user_cancel_reservation.php">Cancel a Reservation</a>
+            <a href="user_reservation_history.php">View Reservation History</a>
+            <a href="user_logout.php">Logout</a>
         </div>
         <div class="content">
             <h2>Enter the Confirmation Number to Cancel Your Reservation</h2>
