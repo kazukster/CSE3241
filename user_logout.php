@@ -3,13 +3,13 @@
 
 session_start();
 
-// clear session variables
+//Clear the session variables
 $_SESSION = array();
 
-// Destroy the session
+//Destroy the session
 session_destroy();
 
-// Redirect to the login page after logout
+//Redirect to the login page after logout
 header("Location: index.php");
 exit;
 ?>
