@@ -53,23 +53,23 @@
 
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $servername = "localhost"; // Your server details
-            $username = "phpuser"; // Your DB username
-            $password = "phpwd"; // Your DB password
-            $dbname = "PARKING_SYSTEM"; // Your DB name
+            $servername = "localhost"; //Server name
+            $username = "phpuser"; //Database username
+            $password = "phpwd"; //Database password
+            $dbname = "PARKING_SYSTEM"; //Database name
 
-            // Create database connection
+            //Creating a connection to the database
             $conn = new mysqli($servername, $username, $password, $dbname);
 
-            // Check connection
+            //Checking the connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // Clean input
+            //Cleaning input to make sure data is safe before using for database
             $confirmation_number = $conn->real_escape_string($_POST['confirmation_number']);
 
-            // Fetch the reservation date
+            //Getting the reservation date
             $sqlFetchDate = "SELECT event_date FROM Reservations WHERE Confirmation_number = ?";
             $stmtFetchDate = $conn->prepare($sqlFetchDate);
             $stmtFetchDate->bind_param("i", $confirmation_number);
@@ -85,7 +85,7 @@
                 if ($currentDate > $reservationDate) {
                     echo "<p style='color: red;'>Cannot cancel reservation. Cancellations must be made at least 3 days in advance.</p>";
                 } else {
-                    // SQL to cancel a reservation
+                    //SQL to cancel a reservation
                     $sqlCancel = "UPDATE Reservations SET status = FALSE WHERE Confirmation_number = ?";
                     $stmtCancel = $conn->prepare($sqlCancel);
                     $stmtCancel->bind_param("i", $confirmation_number);
@@ -101,7 +101,7 @@
                 echo "<p>Invalid confirmation number.</p>";
             }
 
-            // Close connection
+            //Close connection
             $conn->close();
         }
         ?>
