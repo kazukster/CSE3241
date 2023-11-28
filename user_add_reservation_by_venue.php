@@ -64,7 +64,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 //Get the selection from the last page 
 $selectedDate = $_SESSION['enteredDate'];
-$selectedEventName = $_SESSION['selectedEvent'];
+$selectedEventName = $_SESSION['selectedVenue'];
 
 // Query to get available zones for the entered date
 $sql = "SELECT z.zone_ID, z.zone_name, (z.total_spots - COUNT(r.Confirmation_number)) AS available_spots, z.rate,
