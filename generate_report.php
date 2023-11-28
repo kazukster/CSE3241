@@ -41,7 +41,7 @@
         <h1>Generate Reports</h1>
         
         <!-- Form to select a date -->
-        <form method="post" action="generate_reports.php">
+        <form method="post" action="generate_report.php">
             <label for="report_date">Select Date for Report:</label>
             <input type="date" id="report_date" name="report_date" required>
             <button type="submit">Generate Report</button>
