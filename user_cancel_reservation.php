@@ -53,10 +53,10 @@
 
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $servername = "localhost"; // Replace with your server details
-                $username = "phpuser"; // Your DB username
-                $password = "phpwd"; // Your DB password
-                $dbname = "PARKING_SYSTEM"; // Your DB name
+                $servername = "localhost"; 
+                $username = "phpuser"; 
+                $password = "phpwd"; 
+                $dbname = "PARKING_SYSTEM"; 
 
                 // Create database connection
                 $conn = new mysqli($servername, $username, $password, $dbname);
