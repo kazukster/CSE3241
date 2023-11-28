@@ -31,4 +31,4 @@ This application assumes the following:
     your database password = "phpwd"
     your database name = "parking_system"
     If this is not the case, unforseen errors may occur.
-Please, when navigating the html site, do not use your forward/backward arrows, but rather use the built in navigation tools (ex: do not use the back arrow to access the log in page again, but rather use the log out button). Otherwise, unforseen errors may occur.
+Please, when navigating the html site as a user, do not use your forward/backward arrows, but rather use the built in navigation tools (ex: do not use the back arrow to access the log in page again, but rather use the log out button). Otherwise, unforseen errors may occur.
