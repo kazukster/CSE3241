@@ -41,7 +41,7 @@
             <a href="generate_report.php">View Reports</a>
             <a href="manage_zones.php">Manage Zones</a>
             <a href="view_zones.php">View Zones</a>
-            <a href="user_logout.php">Logout</a> <!-- Logout functionality -->
+            <a href="user_logout.php">Logout</a> 
         </div>
         <div class="content">
             <h2>Welcome, Admin!</h2>
