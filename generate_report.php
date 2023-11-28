@@ -40,7 +40,7 @@
     <div class="container">
         <h1>Generate Reports</h1>
         
-        <!-- Form to select a date -->
+        //Form to select the date
         <form method="post" action="generate_report.php">
             <label for="report_date">Select Date for Report:</label>
             <input type="date" id="report_date" name="report_date" required>
@@ -51,13 +51,12 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['report_date'])) {
             $reportDate = $_POST['report_date'];
 
-            //Setting up database
+            //Connecting to database
             $servername = "localhost";
             $username = "phpuser"; //Database username
             $password = "phpwd"; //Database password 
             $dbname = "parking_system"; //Database name
 
-            //Create database connection
             $conn = new mysqli($servername, $username, $password, $dbname);
 
             //Checking the database connection
