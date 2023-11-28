@@ -19,7 +19,7 @@ CREATE TABLE Zones (
 CREATE TABLE Events (
   event_ID INT PRIMARY KEY,
   event_name VARCHAR(255),
-  event_date DATE, -- Assuming the event_date is in a date format
+  event_date DATE, 
   event_fee DECIMAL(10, 2)
 );
 
