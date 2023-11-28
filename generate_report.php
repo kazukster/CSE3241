@@ -51,21 +51,21 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['report_date'])) {
             $reportDate = $_POST['report_date'];
 
-            // Database configuration
+            //Setting up database
             $servername = "localhost";
-            $username = "phpuser"; // your database username
-            $password = "phpwd"; // your database password
-            $dbname = "parking_system"; // your database name
+            $username = "phpuser"; //Database username
+            $password = "phpwd"; //Database password 
+            $dbname = "parking_system"; //Database name
 
-            // Create database connection
+            //Create database connection
             $conn = new mysqli($servername, $username, $password, $dbname);
 
-            // Check connection
+            //Checking the database connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // SQL to fetch report data
+            //SQL to get report data
             $sql = "SELECT Z.zone_name, Z.total_spots, COUNT(R.zone_id) AS reservations_made, Z.rate, SUM(R.total_fee) AS total_revenue
                     FROM Zones Z
                     LEFT JOIN Reservations R ON Z.zone_ID = R.zone_id AND R.event_date = ?
@@ -88,7 +88,7 @@
                 echo "<p>No report data found for " . $reportDate . ".</p>";
             }
 
-            // Close statement and connection
+            //Closing the connection and closing statement
             $stmt->close();
             $conn->close();
         }
