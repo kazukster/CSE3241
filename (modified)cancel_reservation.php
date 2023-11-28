@@ -80,7 +80,7 @@
                 $row = $resultFetchDate->fetch_assoc();
                 $reservationDate = new DateTime($row['event_date']);
                 $currentDate = new DateTime();
-                $currentDate->modify('+3 day');
+                $currentDate->modify('+2 day');
 
                 if ($currentDate > $reservationDate) {
                     echo "<p style='color: red;'>Cannot cancel reservation. Cancellations must be made at least 3 days in advance.</p>";
