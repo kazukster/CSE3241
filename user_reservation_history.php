@@ -84,10 +84,10 @@
         $dbpassword = "phpwd";
         $dbname = "parking_system";
 
-        // Create database connection
+        //Creating a database connection
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-        // Check connection
+        //Checking the connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
@@ -95,13 +95,13 @@
         $input = $conn->real_escape_string($_POST['search']);
         $isCellphone = strlen($input) == 10;
 
-        // Initialize the variable to hold the cellphone number
+        //Initialize the variable to hold the cellphone number
         $cellphone = "";
 
         if ($isCellphone) {
             $cellphone = $input;
         } else {
-            // It's a confirmation number, get the associated cellphone
+            //Confirmation number to get the associated cellphone number
             $confirm_sql = "SELECT Cellphone FROM Reservations WHERE Confirmation_number = ?";
             $confirm_stmt = $conn->prepare($confirm_sql);
             $confirm_stmt->bind_param("i", $input);
@@ -119,7 +119,7 @@
             $confirm_stmt->close();
         }
 
-        // Now query for all reservations using the cellphone number
+        //Then we query for all reservations using the cellphone number
         $sql = "SELECT Confirmation_number, user_name, Cellphone, zone_id, event_date, total_fee, status
                 FROM Reservations
                 WHERE Cellphone = ?";
@@ -130,7 +130,8 @@
 
         if ($result->num_rows > 0) {
             echo "<table><tr><th>Confirmation #</th><th>User Name</th><th>Cellphone</th><th>Zone Number</th><th>Date</th><th>Fee</th><th>Status</th></tr>";
-            // output data of each row
+           
+	    //Output data of each row
             while($row = $result->fetch_assoc()) {
                 $status = $row["status"] ? "Active" : "Cancelled";
                 $status_class = $row["status"] ? "active" : "cancelled";
