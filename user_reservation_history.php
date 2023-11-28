@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Adding a reservation</h1>
+            <h1>Viewing reservation history</h1>
         </div>
         <div class="nav">
             <a href="user_add_reservation.php">Add a Reservation</a>
