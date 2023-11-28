@@ -41,7 +41,7 @@
             <a href="user_add_reservation.php">Add a Reservation</a>
             <a href="user_cancel_reservation.php">Cancel a Reservation</a>
             <a href="user_reservation_history.php">View Reservation History</a>
-            <a href="user_logout.php">Logout</a> <!-- Placeholder for logout functionality -->
+            <a href="user_logout.php">Logout</a> 
         </div>
         <div class="content">
             <h2>Welcome, <?php session_start(); echo $_SESSION['Username_ID']; ?>!</h2>
