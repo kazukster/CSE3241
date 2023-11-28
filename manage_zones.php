@@ -2,9 +2,6 @@
 <html>
 <head>
     <title>Manage Zones</title>
-    <style>
-        /* Add your CSS styling here */
-    </style>
 </head>
 <body>
     <h1>Manage Zones</h1>
@@ -46,21 +43,21 @@
 
 
     <?php
-    // Database configuration
+    //Configuring the database
     $servername = "localhost";
-    $username = "phpuser"; // your database username
-    $password = "phpwd"; // your database password
-    $dbname = "parking_system"; // your database name
+    $username = "phpuser"; //Database username
+    $password = "phpwd"; //Database password
+    $dbname = "parking_system"; //Database name
 
-    // Create database connection
+    //Creates database connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
+    //Checking the connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Check if form is submitted
+    //Checks if form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $action = $_POST['action'];
 
@@ -71,74 +68,74 @@
             $rate = $_POST["rate"];
             $zoneFee = $_POST["zone_fee"];
         
-            // Prepare SQL and bind parameters
+           //Precompile SQL before execution and linking variables to placeholders
             $stmt = $conn->prepare("INSERT INTO Zones (zone_ID, zone_name, total_spots, rate, zone_fee) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("isidd", $zoneID, $zoneName, $maxSpots, $rate, $zoneFee);
         
-            // Execute statement and check for errors
+            //Executes statement and checks for errors
             if($stmt->execute()) {
                 echo "<p>Zone added successfully.</p>";
             } else {
                 echo "<p>Error adding zone: " . $stmt->error . "</p>";
             }
         
-            // Close statement
+            //Close statement
             $stmt->close();
         } elseif ($action == 'remove') {
             $zoneId = $_POST["zone_id"];
 
-            // Prepare SQL and bind parameters for deletion
+            //Precompile SQL before execution and linking variables to placeholders for deletion
             $stmt = $conn->prepare("DELETE FROM Zones WHERE zone_ID = ?");
             $stmt->bind_param("i", $zoneId);
 
-            // Execute statement and check for errors
+            //Executes statement and checks for errors
             if($stmt->execute()) {
                 echo "<p>Zone removed successfully.</p>";
             } else {
                 echo "<p>Error removing zone: " . $stmt->error . "</p>";
             }
 
-            // Close statement
+            //Close the statement
             $stmt->close();
         } elseif ($action == 'update_spots') {
             $zoneID = $_POST["zone_id"];
             $maxSpots = $_POST["total_spots"];
 
-            // Prepare SQL and bind parameters for spot update
+            //Precompile SQL before execution and linking variables to placeholders for spot update
             $stmt = $conn->prepare("UPDATE Zones SET total_spots = ? WHERE zone_ID = ?");
             $stmt->bind_param("ii", $maxSpots, $zoneID);
 
-            // Execute statement and check for errors
+            //Executes statement and checks for errors
             if($stmt->execute()) {
               echo "<p>Spots updated successfully.</p>";
             } else {
               echo "<p>Error updating spots: " . $stmt->error . "</p>";
             }
 
-            // Close statement
+            //Close the statement
             $stmt->close();
         } elseif ($action == 'update_rate') {
             $zoneID = $_POST["zone_id"];
             $rate = $_POST["rate"];
 
-            // Prepare SQL and bind parameters for rate update
+            //Precompile SQL before execution and linking variables to placeholders for  rate update
             $stmt = $conn->prepare("UPDATE Zones SET rate = ?, zone_fee = ? WHERE zone_ID = ?");
             $stmt->bind_param("ddi", $rate, $rate, $zoneID);
 
-            // Execute statement and check for errors
+            //Executes statement and checks for errors
             if($stmt->execute()) {
               echo "<p>Rate updated successfully.</p>";
             } else {
               echo "<p>Error updating rate: " . $stmt->error . "</p>";
             }
 
-            // Close statement
+            //Close the statement
             $stmt->close();
           }
 
     }
 
-    // Close connection
+    //Close connection
     $conn->close();
     ?>
 </body>
