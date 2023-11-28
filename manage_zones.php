@@ -30,7 +30,7 @@
     $servername = "localhost";
     $username = "phpuser"; // your database username
     $password = "phpwd"; // your database password
-    $dbname = "final"; // your database name
+    $dbname = "PARKING_SYSTEM"; // your database name
 
     // Create database connection
     $conn = new mysqli($servername, $username, $password, $dbname);
