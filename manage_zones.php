@@ -3,7 +3,7 @@
 <head>
     <title>Manage Zones</title>
     <style>
-        /* styling */
+        /* Add your CSS styling here */
     </style>
 </head>
 <body>
@@ -27,7 +27,23 @@
         <div><button type="submit">Remove Zone</button></div>
     </form>
 
-    
+    <!-- Update Spots Form -->
+    <form method="post" action="manage_zones.php">
+        <input type="hidden" name="action" value="update_spots">
+        <div><label>Zone ID: <input type="number" name="zone_id" required></label></div>
+        <div><label>Max Spots: <input type="number" name="total_spots" required></label></div>
+        <div><button type="submit">Update Number of Spots</button></div>
+    </form>
+
+    <!-- Update Rate Form -->
+    <form method="post" action="manage_zones.php">
+        <input type="hidden" name="action" value="update_rate">
+        <div><label>Zone ID: <input type="number" name="zone_id" required></label></div>
+        <div><label>Rate: <input type="text" name="rate" required pattern="\d+(\.\d{2})?" title="Decimal format (e.g., 10.00)"></label></div>
+        <div><button type="submit">Update Rate</button></div>
+    </form>
+
+
 
     <?php
     // Database configuration
@@ -84,7 +100,42 @@
 
             // Close statement
             $stmt->close();
-        }
+        } elseif ($action == 'update_spots') {
+            $zoneID = $_POST["zone_id"];
+            $maxSpots = $_POST["total_spots"];
+
+            // Prepare SQL and bind parameters for spot update
+            $stmt = $conn->prepare("UPDATE Zones SET total_spots = ? WHERE zone_ID = ?");
+            $stmt->bind_param("ii", $maxSpots, $zoneID);
+
+            // Execute statement and check for errors
+            if($stmt->execute()) {
+              echo "<p>Spots updated successfully.</p>";
+            } else {
+              echo "<p>Error updating spots: " . $stmt->error . "</p>";
+            }
+
+            // Close statement
+            $stmt->close();
+        } elseif ($action == 'update_rate') {
+            $zoneID = $_POST["zone_id"];
+            $rate = $_POST["rate"];
+
+            // Prepare SQL and bind parameters for rate update
+            $stmt = $conn->prepare("UPDATE Zones SET rate = ?, zone_fee = ? WHERE zone_ID = ?");
+            $stmt->bind_param("ddi", $rate, $rate, $zoneID);
+
+            // Execute statement and check for errors
+            if($stmt->execute()) {
+              echo "<p>Rate updated successfully.</p>";
+            } else {
+              echo "<p>Error updating rate: " . $stmt->error . "</p>";
+            }
+
+            // Close statement
+            $stmt->close();
+          }
+
     }
 
     // Close connection
