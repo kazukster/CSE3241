@@ -54,20 +54,27 @@
     
     <h2>Enter a Date (at least 1 day in advance of the current date)</h2>
     <?php
-    // Validate if the form is submitted
+
+    //Check if the form was submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Check if the date input is set and event selection is not submitted
     if (isset($_POST["inputDate"]) && !isset($_POST["selectedEvent"])) {
-        // Get the input date from the form
+        
+
+	// Get the input date from the form
         $inputDate = $_POST["inputDate"];
 
-        // Validate if the date is at least 1 day in advance
+        // Get the current date
         $currentDate = date("Y-m-d");
 
-        if ($inputDate < $currentDate) {
-            // Display error message
+	// Check that the date given matches the restriction (1 day in advance)
+        if ($inputDate <= $currentDate) {
+            
+	// Display error message
             echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
         } else {
+
             // If the date is valid, store in session and redirect to the new page
             $_SESSION['enteredDate'] = $inputDate;
             header("Location: user_add_reservation_by_date.php");
@@ -81,16 +88,19 @@
 
         // Store the selected event in a session variable
         $_SESSION["selectedVenue"] = $_POST["selectedEvent"];
-	        // Validate if the date is at least 1 day in advance
+
+	// Get the current date
         $currentDate = date("Y-m-d");
-		if ($inputDate < $currentDate) {
+
+	// Check that the date given matches the restriction (1 day in advance)
+	if ($inputDate <= $currentDate) {
             // Display error message
             echo '<p style="color: red;">Invalid date. Please enter a date at least 1 day in advance.</p>';
         } else {
        		 // Redirect to the new page
         	header("Location: user_add_reservation_by_venue.php");
         	exit();
-}
+	}
     }
 }
     ?>
@@ -104,13 +114,13 @@
 
     
     <?php
-// Database connection (replace with your database credentials)
+
+//Connecting to the database
 $servername = "localhost";
 $username = "phpuser";
 $password = "phpwd";
 $dbname = "PARKING_SYSTEM";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -124,6 +134,7 @@ $result = $conn->query($sql);
 
 // Close the database connection
 $conn->close();
+// Form for the 2nd submit option
 ?>
 
 <h2>Select a venue</h2>
